@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import static com.codeborne.selenide.Condition.appear;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$;
@@ -32,6 +33,29 @@ public class CardDeliveryTest {
 
 
     //Тесты для проверки валидации
+    @Test
+    public void allFieldsAreEmpty() {
+        $("[data-test-id='city'] [class='input__control']").setValue("");
+        $("[data-test-id='date'] [class='input__control']").doubleClick().sendKeys(" ");
+        $(withText("Мы гарантируем безопасность ваших данных")).click(); //для того, чтобы скрыть календарь
+        $("[data-test-id='name'] [class='input__control']").setValue("");
+        $("[data-test-id='phone'] [class='input__control']").setValue("");
+        $(".checkbox__box").click();
+        $(byText("Забронировать")).click();
+        $(withText("Поле обязательно для заполнения")).shouldBe(appear);
+    }
+
+    @Test
+    public void allValuesAreWrong() {
+        $("[data-test-id='city'] [class='input__control']").setValue("New York");
+        $("[data-test-id='date'] [class='input__control']").doubleClick()
+                .sendKeys(LocalDate.now().plusDays(2).format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+        $("[data-test-id='name'] [class='input__control']").setValue("Ivanov Ivan");
+        $("[data-test-id='phone'] [class='input__control']").setValue("89001000110");
+        $(".checkbox__box").click();
+        $(byText("Забронировать")).click();
+        $(withText("Доставка в выбранный город недоступна")).shouldBe(appear);
+    }
 
     //Поле "Город"
     @Test
@@ -210,6 +234,14 @@ public class CardDeliveryTest {
     }
 
     //Чекбокс
-
-
+    @Test
+    public void orderWithNoCheckbox() {
+        $("[data-test-id='city'] [class='input__control']").setValue("Москва");
+        $("[data-test-id='date'] [class='input__control']").doubleClick()
+                .sendKeys(LocalDate.now().plusDays(4).format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+        $("[data-test-id='name'] [class='input__control']").setValue("Иванов Иван");
+        $("[data-test-id='phone'] [class='input__control']").setValue("+79001000110");
+        $(byText("Забронировать")).click();
+        $("[class='checkbox checkbox_size_m checkbox_theme_alfa-on-white input_invalid']").shouldBe(visible);
+    }
 }
