@@ -1,14 +1,17 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Keys;
 
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.*;
+import static org.openqa.selenium.Keys.*;
 
 public class CardDeliveryTest {
 
@@ -30,6 +33,9 @@ public class CardDeliveryTest {
     @BeforeEach
     public void setUp() {
         open("http://localhost:9999");
+
+        $("[data-test-id=date] .input__control").sendKeys(Keys.chord(SHIFT, HOME, DELETE));
+
     }
 
     @Test
@@ -296,3 +302,4 @@ public class CardDeliveryTest {
         $(".notification__content").shouldHave(text(deliveryDateInDays(5)));
     }
 }
+
