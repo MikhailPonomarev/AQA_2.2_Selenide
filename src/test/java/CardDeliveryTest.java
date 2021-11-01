@@ -33,9 +33,6 @@ public class CardDeliveryTest {
     @BeforeEach
     public void setUp() {
         open("http://localhost:9999");
-
-        $("[data-test-id=date] .input__control").sendKeys(Keys.chord(SHIFT, HOME, DELETE));
-
     }
 
     @Test
@@ -46,8 +43,8 @@ public class CardDeliveryTest {
         $("[data-test-id='phone'] input").setValue("+79001000110");
         $(".checkbox__box").click();
         $(byText("Забронировать")).click();
-        $(withText("Встреча успешно забронирована на")).should(appear, Duration.ofSeconds(15));
-        $(".notification__content").shouldHave(text(deliveryDateInDays(3)));
+        $(".notification__content").should(appear, Duration.ofSeconds(15))
+                .shouldHave(exactText("Встреча успешно забронирована на " + deliveryDateInDays(3)));
     }
 
 
@@ -129,8 +126,8 @@ public class CardDeliveryTest {
         $("[data-test-id='phone'] input").setValue("+79001000110");
         $(".checkbox__box").click();
         $(byText("Забронировать")).click();
-        $(withText("Встреча успешно забронирована на")).should(appear, Duration.ofSeconds(15));
-        $(".notification__content").shouldHave(text(deliveryDateInDays(4)));
+        $(".notification__content").should(appear, Duration.ofSeconds(15))
+                .shouldHave(exactText("Встреча успешно забронирована на " + deliveryDateInDays(4)));
     }
 
     @Test
@@ -152,8 +149,8 @@ public class CardDeliveryTest {
         $("[data-test-id='phone'] input").setValue("+79001000110");
         $(".checkbox__box").click();
         $(byText("Забронировать")).click();
-        $(withText("Встреча успешно забронирована на")).should(appear, Duration.ofSeconds(15));
-        $(".notification__content").shouldHave(text(deliveryDateInMonths(1)));
+        $(".notification__content").should(appear, Duration.ofSeconds(15))
+                .shouldHave(exactText("Встреча успешно забронирована на " + deliveryDateInMonths(1)));
     }
 
     @Test
@@ -164,8 +161,8 @@ public class CardDeliveryTest {
         $("[data-test-id='phone'] input").setValue("+79001000110");
         $(".checkbox__box").click();
         $(byText("Забронировать")).click();
-        $(withText("Встреча успешно забронирована на")).should(appear, Duration.ofSeconds(15));
-        $(".notification__content").shouldHave(text(deliveryDateInYears(1)));
+        $(".notification__content").should(appear, Duration.ofSeconds(15))
+                .shouldHave(exactText("Встреча успешно забронирована на " + deliveryDateInYears(1)));
     }
 
     //Поле "Фамилия и имя"
@@ -272,8 +269,8 @@ public class CardDeliveryTest {
         $("[data-test-id='phone'] input").setValue("+79001000110");
         $(".checkbox__box").click();
         $(byText("Забронировать")).click();
-        $(withText("Встреча успешно забронирована на")).should(appear, Duration.ofSeconds(15));
-        $(".notification__content").shouldHave(text(deliveryDateInDays(5)));
+        $(".notification__content").should(appear, Duration.ofSeconds(15))
+                .shouldHave(exactText("Встреча успешно забронирована на " + deliveryDateInDays(5)));
     }
 
     @Test
@@ -285,8 +282,8 @@ public class CardDeliveryTest {
         $("[data-test-id='phone'] input").setValue("+79001000110");
         $(".checkbox__box").click();
         $(byText("Забронировать")).click();
-        $(withText("Встреча успешно забронирована на")).should(appear, Duration.ofSeconds(15));
-        $(".notification__content").shouldHave(text(deliveryDateInDays(5)));
+        $(".notification__content").should(appear, Duration.ofSeconds(15))
+                .shouldHave(exactText("Встреча успешно забронирована на " + deliveryDateInDays(5)));
     }
 
     @Test
@@ -298,8 +295,8 @@ public class CardDeliveryTest {
         $("[data-test-id='phone'] input").setValue("+79001000110");
         $(".checkbox__box").click();
         $(byText("Забронировать")).click();
-        $(withText("Встреча успешно забронирована на")).shouldBe(appear, Duration.ofSeconds(15));
-        $(".notification__content").shouldHave(text(deliveryDateInDays(5)));
+        $(".notification__content").should(appear, Duration.ofSeconds(15))
+                .shouldHave(exactText("Встреча успешно забронирована на " + deliveryDateInDays(5)));
     }
 }
 
